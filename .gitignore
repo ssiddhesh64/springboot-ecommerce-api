@@ -1,0 +1,23 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node.js
+node_modules/
+npm-debug.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.env
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# Build outputs
+dist/
+build/
