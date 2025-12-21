@@ -2,12 +2,11 @@ package com.ecomm.service;
 
 import com.ecomm.entity.User;
 import com.ecomm.repository.UserRepository;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,9 +23,9 @@ public class UserService {
 
     public Optional<User> authenticate(String email, String password) {
         Optional<User> userOpt = userRepository.findByEmail(email);
-        if(userOpt.isPresent()) {
+        if (userOpt.isPresent()) {
             User user = userOpt.get();
-            if(passwordEncoder.matches(password, user.getPassword())) {
+            if (passwordEncoder.matches(password, user.getPassword())) {
                 return Optional.of(user);
             }
         }

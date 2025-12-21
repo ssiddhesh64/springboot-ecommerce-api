@@ -21,10 +21,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public Order placeOrder(
-            @AuthenticationPrincipal User user,
-            @RequestBody OrderRequest request
-    ) {
+    public Order placeOrder(@AuthenticationPrincipal User user, @RequestBody OrderRequest request) {
         return orderService.placeOrder(user, request);
     }
 }

@@ -20,7 +20,6 @@ public class AuthController {
     private final UserService userService;
     private final JwtTokenProvider tokenProvider;
 
-
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         User savedUser = userService.registerUser(user);
@@ -29,11 +28,13 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
-        return userService.authenticate(user.getEmail(), user.getPassword())
+        return userService
+                .authenticate(user.getEmail(), user.getPassword())
                 .map((authUser) -> {
                     String token = tokenProvider.generateToken(authUser.getEmail());
                     return ResponseEntity.ok(new AuthResponse(token));
-                }).orElse(ResponseEntity.status(401).body(new AuthResponse("Invalid Credentials")));
+                })
+                .orElse(ResponseEntity.status(401).body(new AuthResponse("Invalid Credentials")));
     }
 
     @Data

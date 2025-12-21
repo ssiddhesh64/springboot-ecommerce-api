@@ -4,16 +4,15 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.stereotype.Component;
-
 import java.util.Date;
+import org.springframework.stereotype.Component;
 
 @Component
 public class JwtTokenProvider {
 
     private String secretKey = "mysecretkey";
 
-    private final long expiration = 60 * 60 * 24 * 1000;  // 24 hours
+    private final long expiration = 60 * 60 * 24 * 1000; // 24 hours
 
     public String generateToken(String email) {
 
@@ -30,10 +29,8 @@ public class JwtTokenProvider {
 
     public String getEmailFromToken(String token) {
 
-        Claims claims = Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .getBody();
+        Claims claims =
+                Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
         return claims.getSubject();
     }
 

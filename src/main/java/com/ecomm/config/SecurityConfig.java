@@ -20,12 +20,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.csrf()
+                .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/test/**").permitAll() // allow auth endpoints
-                .anyRequest().authenticated() // all other endpoints need auth
+                .requestMatchers("/api/test/**")
+                .permitAll() // allow auth endpoints
+                .anyRequest()
+                .authenticated() // all other endpoints need auth
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

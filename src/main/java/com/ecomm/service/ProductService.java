@@ -4,10 +4,9 @@ import com.ecomm.dto.ProductRequest;
 import com.ecomm.dto.ProductResponse;
 import com.ecomm.entity.Product;
 import com.ecomm.repository.ProductRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,8 +29,7 @@ public class ProductService {
     }
 
     public List<ProductResponse> getAllProducts() {
-        return productRepository.findAll()
-                .stream()
+        return productRepository.findAll().stream()
                 .filter(Product::isActive)
                 .map(this::mapToResponse)
                 .toList();
@@ -39,12 +37,6 @@ public class ProductService {
 
     private ProductResponse mapToResponse(Product product) {
         return new ProductResponse(
-                product.getId(),
-                product.getName(),
-                product.getDescription(),
-                product.getPrice(),
-                product.getStock()
-        );
+                product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getStock());
     }
 }
-
