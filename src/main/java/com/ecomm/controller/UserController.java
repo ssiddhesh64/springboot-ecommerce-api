@@ -1,5 +1,6 @@
 package com.ecomm.controller;
 
+import com.ecomm.dto.UserResponse;
 import com.ecomm.service.UserService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/users")
-    public List<String> getUsers() {
+    public List<UserResponse> getUsers() {
         return userService.getUsers();
     }
 }

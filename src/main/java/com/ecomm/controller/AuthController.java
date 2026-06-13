@@ -1,8 +1,11 @@
 package com.ecomm.controller;
 
-import com.ecomm.entity.User;
+import com.ecomm.dto.LoginRequest;
+import com.ecomm.dto.RegisterRequest;
+import com.ecomm.dto.UserResponse;
 import com.ecomm.security.JwtTokenProvider;
 import com.ecomm.service.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -21,17 +24,17 @@ public class AuthController {
     private final JwtTokenProvider tokenProvider;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
-        User savedUser = userService.registerUser(user);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserResponse> registerUser(@Valid @RequestBody RegisterRequest request) {
+        UserResponse response = userService.registerUser(request);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
         return userService
-                .authenticate(user.getEmail(), user.getPassword())
+                .authenticate(request.email(), request.password())
                 .map((authUser) -> {
-                    String token = tokenProvider.generateToken(authUser.getEmail());
+                    String token = tokenProvider.generateToken(authUser.email());
                     return ResponseEntity.ok(new AuthResponse(token));
                 })
                 .orElse(ResponseEntity.status(401).body(new AuthResponse("Invalid Credentials")));
