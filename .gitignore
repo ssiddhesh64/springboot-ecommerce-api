@@ -17,10 +17,29 @@ __pycache__/
 # Logs
 *.log
 
-# IDEs
+# IDEs & Editor Files
 .vscode/
 .idea/
+*.iml
+*.ipr
+*.iws
 
-# Build outputs
+# Eclipse-specific files
+.project
+.classpath
+.settings/
+.factorypath
+
+# NetBeans
+nbproject/
+nb-configuration.xml
+nbdist/
+
+# Build outputs & packaging
 dist/
 build/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
