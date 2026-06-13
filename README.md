@@ -1,10 +1,10 @@
-# 🌟 Spring Boot E-Commerce REST API
+# Spring Boot E-Commerce REST API
 
 A modern, secure, and production-grade Spring Boot REST API demonstrating a complete e-commerce backend solution. Built with standard engineering design patterns, robust security practices, and comprehensive unit/integration test coverage.
 
 ---
 
-## 🚀 Key Features & Architectural Patterns
+## Key Features & Architectural Patterns
 
 - **Layered Architecture**: Strictly follows the **Controller-Service-Repository** pattern to ensure clean separation of concerns and maintainability.
 - **DTO Pattern for Security**: Uses Java Records as Data Transfer Objects (DTOs) for incoming requests and outgoing responses. This guarantees that internal entity schemas and sensitive data (e.g., BCrypt-hashed passwords) are **never leaked** in API responses.
@@ -19,7 +19,7 @@ A modern, secure, and production-grade Spring Boot REST API demonstrating a comp
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 * **Java & Spring Boot**: Java 17+, Spring Boot 3.5.x, Spring Data JPA, Spring Security.
 * **Database**: In-Memory H2 Database (with H2 Console enabled at `/h2-console`).
@@ -29,7 +29,7 @@ A modern, secure, and production-grade Spring Boot REST API demonstrating a comp
 
 ---
 
-## 🗂️ System Design & Flow
+## System Design & Flow
 
 ```mermaid
 graph TD
@@ -47,7 +47,7 @@ graph TD
 
 ---
 
-## 📌 REST API Endpoint Specifications
+## REST API Endpoint Specifications
 
 ### Authentication API (`/api/auth`)
 
@@ -71,7 +71,7 @@ graph TD
 
 ---
 
-## ⚙️ Setup & Installation
+## Setup & Installation
 
 ### Prerequisites
 - JDK 17 or higher
@@ -97,7 +97,7 @@ graph TD
 
 ---
 
-## 🧪 Running the Test Suite
+## Running the Test Suite
 
 This project includes robust testing strategies covering mock assertions, entity behavior, and servlet endpoint integration.
 
