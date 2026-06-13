@@ -1,6 +1,9 @@
 package com.ecomm.service;
 
+import com.ecomm.dto.RegisterRequest;
+import com.ecomm.dto.UserResponse;
 import com.ecomm.entity.User;
+import com.ecomm.exception.BusinessException;
 import com.ecomm.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
@@ -12,27 +15,32 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public User registerUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(User.ROLE.CUSTOMER);
-        return userRepository.save(user);
-    }
-
-    public Optional<User> authenticate(String email, String password) {
-        Optional<User> userOpt = userRepository.findByEmail(email);
-        if (userOpt.isPresent()) {
-            User user = userOpt.get();
-            if (passwordEncoder.matches(password, user.getPassword())) {
-                return Optional.of(user);
-            }
+    public UserResponse registerUser(RegisterRequest request) {
+        if (userRepository.findByEmail(request.email()).isPresent()) {
+            throw new BusinessException("Email already exists: " + request.email());
         }
-        return Optional.empty();
+        User user = User.builder()
+                .name(request.name())
+                .email(request.email())
+                .password(passwordEncoder.encode(request.password()))
+                .role(User.ROLE.CUSTOMER)
+                .build();
+        User savedUser = userRepository.save(user);
+        return new UserResponse(savedUser.getId(), savedUser.getName(), savedUser.getEmail(), savedUser.getRole());
     }
 
-    public List<String> getUsers() {
-        return List.of("User1", "User2", "User3");
+    public Optional<UserResponse> authenticate(String email, String password) {
+        return userRepository.findByEmail(email)
+                .filter(user -> passwordEncoder.matches(password, user.getPassword()))
+                .map(user -> new UserResponse(user.getId(), user.getName(), user.getEmail(), user.getRole()));
+    }
+
+    public List<UserResponse> getUsers() {
+        return userRepository.findAll().stream()
+                .map(user -> new UserResponse(user.getId(), user.getName(), user.getEmail(), user.getRole()))
+                .toList();
     }
 }

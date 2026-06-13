@@ -5,14 +5,17 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JwtTokenProvider {
 
-    private String secretKey = "mysecretkey";
+    @Value("${ecomm.jwt.secret:dGhpc2lzYW5leHRyZW1lbHlzdHJvbmdhbmRzZWN1cmVqd3RzZWNyZXRrZXlmb3JvdXJlc3ByaW5nYm9vdGVjb21tZXJjZWFwaXByb2plY3Q=}")
+    private String secretKey;
 
-    private final long expiration = 60 * 60 * 24 * 1000; // 24 hours
+    @Value("${ecomm.jwt.expiration:86400000}")
+    private long expiration;
 
     public String generateToken(String email) {
 

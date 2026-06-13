@@ -1,2 +1,25 @@
 server:
   port: 8081
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+ecomm:
+  jwt:
+    # A standard 256-bit (32-byte) secret key for HS256 algorithm
+    secret: "dGhpc2lzYW5leHRyZW1lbHlzdHJvbmdhbmRzZWN1cmVqd3RzZWNyZXRrZXlmb3JvdXJlc3ByaW5nYm9vdGVjb21tZXJjZWFwaXByb2plY3Q="
+    # 24 hours in milliseconds (86400000)
+    expiration: 86400000

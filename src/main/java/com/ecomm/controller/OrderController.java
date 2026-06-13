@@ -1,7 +1,7 @@
 package com.ecomm.controller;
 
 import com.ecomm.dto.OrderRequest;
-import com.ecomm.entity.Order;
+import com.ecomm.dto.OrderResponse;
 import com.ecomm.entity.User;
 import com.ecomm.service.OrderService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,7 +21,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public Order placeOrder(@AuthenticationPrincipal User user, @RequestBody OrderRequest request) {
+    public OrderResponse placeOrder(@AuthenticationPrincipal User user, @RequestBody OrderRequest request) {
         return orderService.placeOrder(user, request);
     }
 }
